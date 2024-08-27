@@ -1,0 +1,66 @@
+---
+title: "Project Euler"
+output: html_document
+date: "2024-08-23"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Problem 1 ProjectEuler
+## Find the sum of all the multiples of 3 or 5 below 1000
+```{r}
+multiples_of_3_and_5 <- function(n) {
+  three = seq(from = 0,to = n, by = 3)
+  five = seq(from = 0,to = n, by = 5)
+  final_sum = sum(three) + sum(five)
+  
+  for (i in five){
+    if (i %in% three){
+      final_sum = final_sum - i
+    }
+  }
+  return(final_sum)
+}
+answer <- paste('The sum of all the multiples 3 or 5 below 1000 is', multiples_of_3_and_5(999))
+print(answer)
+```
+
+# Problem 2 ProjectEuler
+## By considering the terms in the Fibonacci sequence whose values do not exceed four million, find the sum of the even-valued terms.
+```{r}
+fibonnaci_sum <- function(n) {
+  lst = list(1, 2)
+  check = list()
+  while (lst[length(lst)] < n) {
+    lst <- lapply(lst, as.numeric)
+    lst[[length(lst) + 1]] <- as.numeric(lst[length(lst)]) + as.numeric(lst[length(lst) - 1])
+  }
+  for (i in lst){
+    if( i %% 2 == 0){
+      check[[length(check)+1]] <- i
+    }
+  }
+  return(sum(unlist(check)))
+}
+answer <- paste('The sum of the even-valued terms whose values do not exceed four million is', fibonnaci_sum(4000000))
+print(answer)
+```
+
+# Problem 3 ProjectEuler
+## What is the largest prime factor of the number 600851475143?
+```{r}
+factors <- function(n){
+  factor <- list(1)
+  for (i in 3:floor(sqrt(n))){
+    while (n %% i == 0){
+      factor[[length(factor) + 1]] <- i
+      n = n / i
+    }
+  }
+  return(factor[length(factor)])
+}
+answer <- paste('The largest prime factor of the number 600851475143 is', factors(600851475143))
+print(answer)
+```
